@@ -1,4 +1,4 @@
-package com.sergeev.exception;
+package com.sergeev.day5.exception;
 
 public class ProgramException extends Exception {
 

@@ -1,15 +1,12 @@
-package com.sergeev.reader;
+package com.sergeev.day5.reader;
 
-import com.sergeev.exception.ProgramException;
+import com.sergeev.day5.exception.ProgramException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
-public class TextConsoleReader {
+public class TextFileReader {
 
     private static final String SEPARATOR = " ";
 
@@ -18,9 +15,8 @@ public class TextConsoleReader {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(pathToFile))) {
             result = bufferedReader.readLine();
         } catch (IOException e) {
-            throw new ProgramException("File not found");
+            throw new ProgramException("File not found", e);
         }
         return result;
     }
-
 }
