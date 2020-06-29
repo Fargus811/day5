@@ -7,14 +7,14 @@ public class TextEditor {
 
 
     public static void main(String[] args) {
-        String test = "При сочетании вопросительного и восклицательного знаков вначале ставится основной знак, " +
+        String test = "Ра, При сочетании вопросительного и восклицательного знаков вначале ставится основной знак, " +
                 "указывающий на цель высказывания – вопросительный знак, а затем – восклицательный знак как " +
                 "показатель эмоциональной окрашенности высказывания: – Что же стоите-то?! – закричал он еще" +
                 " издали (Шукш.); – Еще надо?! – Елизар стукнул кулаком по столу (Шукш.)." +
                 "При сочетании вопросительного или восклицательного знака с многоточием знаки эти ставятся на месте " +
                 "первой точки: – Ну, что они там?..  (Шукш.); – Сейчас зайдем к старику, так?.." +
                 "  (Шукш.); «Эх, елки зеленые!.. » – горько подумал он (Шукш.).";
-        System.out.println(editTextReplaceNewLine(test,3, "LOL"));
+        System.out.println(editTextReplaceNewLine(test,3, "Lpl"));
     }
 
     public static String editTextByIndex(String text, int index, char symbol) {
@@ -22,8 +22,9 @@ public class TextEditor {
         Pattern pattern = Pattern.compile("[a-zA-Z0-9А-Яа-я]{" + index + ",}");
         Matcher matcher = pattern.matcher(text);
         while (matcher.find()) {
-            String replacement = replaceCharInWord(matcher.group(), index, symbol);
-            matcher.appendReplacement(sb, replacement);
+            StringBuffer stringBuffer = new StringBuffer(matcher.group());
+            stringBuffer.setCharAt(index - 1, symbol);
+            matcher.appendReplacement(sb, stringBuffer.toString());
         }
         matcher.appendTail(sb);
         return sb.toString();
@@ -42,13 +43,15 @@ public class TextEditor {
         Pattern pattern = Pattern.compile("ра|Ра");
         Matcher matcher = pattern.matcher(text);
         while (matcher.find()) {
-            String replacement = replaceCharInWord(matcher.group(), matcher.end(), 'о');
-            matcher.appendReplacement(sb, replacement);
+            StringBuffer stringBuffer = new StringBuffer(matcher.group());
+            stringBuffer.setCharAt(matcher.group().length() - 1, 'о');
+            matcher.appendReplacement(sb, stringBuffer.toString());
         }
         matcher.appendTail(sb);
         return sb.toString();
     }
-    public static String editTextReplaceNewLine(String text,int quantity, String toReplace) {
+
+    public static String editTextReplaceNewLine(String text, int quantity, String toReplace) {
         StringBuffer sb = new StringBuffer();
         Pattern pattern = Pattern.compile("\\b[a-zA-Z0-9А-Яа-я]{" + quantity + "}\\b");
         Matcher matcher = pattern.matcher(text);
@@ -58,5 +61,28 @@ public class TextEditor {
         matcher.appendTail(sb);
         return sb.toString();
     }
+
+    public static String editTextWithoutPunctuation(String text) {
+        StringBuffer sb = new StringBuffer();
+        Pattern pattern = Pattern.compile("[^a-zA-Z-А-Яа-я-\\s]");
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find()) {
+            matcher.appendReplacement(sb, " ");
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
+    }
+
+    public static String editTextWithConsonantOfGivenLength(String text, int length) {
+        StringBuffer sb = new StringBuffer();
+        Pattern pattern = Pattern.compile("([^aeiouAEIOUЕеАаЕеЁёЯяЮюУуЫыЭэИи\\s]){" + length + "}");
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find()) {
+            matcher.appendReplacement(sb, " ");
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
+    }
+
 
 }
