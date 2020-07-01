@@ -1,16 +1,25 @@
 package com.sergeev.day5.service.impl;
 
+import com.sergeev.day5.exception.ProgramException;
 import com.sergeev.day5.service.ChangeText;
+import com.sergeev.day5.validator.TextValidator;
 
 import java.util.Arrays;
 
 public class ArrayChangeTextServiceImpl implements ChangeText {
 
-    private static final String DELIMETR = " ";
+    private static final String DELIMITER = " ";
+    private static final char LETTER_P = 'P';
+    private static final char LETTER_A = 'A';
+    private static final char LETTER_P_LOWER_CASE = 'p';
+    private static final char LETTER_A_LOWER_CASE = 'a';
+
+    private TextValidator textValidator = new TextValidator();
 
     @Override
-    public String changeSymbolInWordByIndex(String text, int index, char symbol) {
-        String[] stringArray = Arrays.stream(text.split(DELIMETR)).map(String::trim).toArray(String[]::new);
+    public String changeSymbolInWordByIndex(String text, int index, char symbol) throws ProgramException {
+        textValidator.isTextNotNullAndEmpty(text);
+        String[] stringArray = Arrays.stream(text.split(DELIMITER)).map(String::trim).toArray(String[]::new);
         StringBuilder stringBuilder = new StringBuilder();
         for (String word : stringArray) {
             if (word.length() >= index) {
@@ -18,16 +27,17 @@ public class ArrayChangeTextServiceImpl implements ChangeText {
                 if (Character.isLetter(charsOfWord[index - 1])) {
                     charsOfWord[index - 1] = symbol;
                 }
-                stringBuilder.append(String.valueOf(charsOfWord)).append(DELIMETR);
+                stringBuilder.append(String.valueOf(charsOfWord)).append(DELIMITER);
             } else {
-                stringBuilder.append(word).append(DELIMETR);
+                stringBuilder.append(word).append(DELIMITER);
             }
         }
-        return stringBuilder.toString();
+        return stringBuilder.toString().trim();
     }
 
     @Override
-    public String changeWordWithWrongLetterA(String text) {
+    public String changeWordWithWrongLetterAAfterP(String text) throws ProgramException {
+        textValidator.isTextNotNullAndEmpty(text);
         char[] textArray = text.toCharArray();
         for (int i = 0; i < textArray.length - 1; i++) {
             if (isSuitableWithLettersPAndA(textArray, i)) {
@@ -38,19 +48,22 @@ public class ArrayChangeTextServiceImpl implements ChangeText {
     }
 
     private boolean isSuitableWithLettersPAndA(char[] textArray, int i) {
-        return textArray[i] == 'P' || textArray[i] == 'p' && textArray[i + 1] == 'a' || textArray[i + 1] == 'A';
+        return textArray[i] == LETTER_P || textArray[i] == LETTER_P_LOWER_CASE
+                && textArray[i + 1] == LETTER_A_LOWER_CASE || textArray[i + 1] == LETTER_A;
     }
 
     @Override
-    public String changeWordByQuantityWithNewLine(String text, int quantity, String toReplace) {
-        String[] stringArray = Arrays.stream(text.split(DELIMETR)).map(String::trim).toArray(String[]::new);
+    public String changeWordByQuantityWithNewLine(String text, int quantity, String toReplace) throws ProgramException {
+        textValidator.isTextNotNullAndEmpty(text);
+        String[] stringArray = Arrays.stream(text.split(DELIMITER)).map(String::trim).toArray(String[]::new);
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < stringArray.length; i++) {
             if (stringArray[i].length() == quantity) {
-                stringBuilder.append(toReplace).append(DELIMETR);
+                stringBuilder.append(toReplace).append(DELIMITER);
+            } else {
+                stringBuilder.append(stringArray[i]).append(DELIMITER);
             }
-            stringBuilder.append(stringArray[i]).append(DELIMETR);
         }
-        return stringBuilder.toString();
+        return stringBuilder.toString().trim();
     }
 }

@@ -1,6 +1,8 @@
 package com.sergeev.day5.service.impl;
 
+import com.sergeev.day5.exception.ProgramException;
 import com.sergeev.day5.service.DeleteText;
+import com.sergeev.day5.validator.TextValidator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,22 +13,27 @@ public class RegexDeleteTextServiceImpl implements DeleteText {
     private static final String REGEX_TO_DELETE_CONSONANT = "\\b([^aeiouyAEIOUY\\s\\.][\\w]{";
     private static final String REGEX_TO_DELETE_ENDING = "})\\b";
     private static final String EMPTY_LINE = "";
+    private static final String DELIMITER = " ";
+
+    private TextValidator textValidator = new TextValidator();
 
     @Override
-    public String deletePunctuationInText(String text) {
+    public String deletePunctuationInText(String text) throws ProgramException {
+        textValidator.isTextNotNullAndEmpty(text);
         StringBuffer sb = new StringBuffer();
         Pattern pattern = Pattern.compile(REGEX_TO_DELETE_PUNCTUATION);
         Matcher matcher = pattern.matcher(text);
         while (matcher.find()) {
-            matcher.appendReplacement(sb, " ");
+            matcher.appendReplacement(sb, DELIMITER);
         }
         matcher.appendTail(sb);
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     @Override
-    public String deleteTextWithConsonantOfGivenLength(String text, int length) {
-        int sizeOfWord = length + 1;
+    public String deleteTextWithConsonantOfGivenLength(String text, int length) throws ProgramException {
+        textValidator.isTextNotNullAndEmpty(text);
+        int sizeOfWord = length - 1;
         StringBuffer sb = new StringBuffer();
         Pattern pattern = Pattern.compile(REGEX_TO_DELETE_CONSONANT + sizeOfWord + REGEX_TO_DELETE_ENDING);
         Matcher matcher = pattern.matcher(text);
@@ -34,6 +41,6 @@ public class RegexDeleteTextServiceImpl implements DeleteText {
             matcher.appendReplacement(sb, EMPTY_LINE);
         }
         matcher.appendTail(sb);
-        return sb.toString();
+        return sb.toString().trim();
     }
 }

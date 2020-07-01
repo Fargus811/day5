@@ -8,15 +8,44 @@ import java.io.IOException;
 
 public class TextFileReader {
 
-    private static final String SEPARATOR = " ";
+    private static final String DELIMITER = " ";
+    private static final String EMPTY_LINE = "";
 
     public String createTextFromFile(String pathToFile) throws ProgramException {
-        String  result;
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(pathToFile))) {
-            result = bufferedReader.readLine();
+        StringBuilder stringBuilder = new StringBuilder();
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new FileReader(pathToFile));
+            String nextLine;
+            while ((nextLine = bufferedReader.readLine()) != null) {
+                addLineToResultText(stringBuilder, nextLine);
+            }
         } catch (IOException e) {
             throw new ProgramException("File not found", e);
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    throw new ProgramException("Error in buffered reader", e);
+                }
+            }
         }
-        return result;
+        isEmpty(stringBuilder);
+        return stringBuilder.toString();
+    }
+
+    private void addLineToResultText(StringBuilder stringBuilder, String nextLine) {
+        if (stringBuilder.toString().equals(EMPTY_LINE)) {
+            stringBuilder.append(nextLine);
+        } else {
+            stringBuilder.append(DELIMITER).append(nextLine);
+        }
+    }
+
+    private void isEmpty(StringBuilder stringBuilder) throws ProgramException {
+        if (stringBuilder.toString().isEmpty()) {
+            throw new ProgramException("File is empty");
+        }
     }
 }
