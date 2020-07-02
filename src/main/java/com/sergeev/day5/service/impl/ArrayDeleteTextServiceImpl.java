@@ -1,12 +1,12 @@
 package com.sergeev.day5.service.impl;
 
 import com.sergeev.day5.exception.ProgramException;
-import com.sergeev.day5.service.DeleteText;
+import com.sergeev.day5.service.DeleteTextService;
 import com.sergeev.day5.validator.TextValidator;
 
 import java.util.Arrays;
 
-public class ArrayDeleteTextServiceImpl implements DeleteText {
+public class ArrayDeleteTextServiceImpl implements DeleteTextService {
 
     private static final char INSTEAD_OF_PUNCTUATION = ' ';
     private static final String DELIMITER = " ";
@@ -46,7 +46,7 @@ public class ArrayDeleteTextServiceImpl implements DeleteText {
         if (isEndsWithPunctuationMark(length, word)) {
             return EMPTY_LINE + word[line.length() - 1];
         }
-        if (line.length() == length && line.startsWith(VOWELS)) {
+        if (line.length() == length && !line.startsWith(VOWELS)) {
             return EMPTY_LINE;
         }
         return line;

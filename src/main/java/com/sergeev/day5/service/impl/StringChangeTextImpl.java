@@ -1,10 +1,10 @@
 package com.sergeev.day5.service.impl;
 
 import com.sergeev.day5.exception.ProgramException;
-import com.sergeev.day5.service.ChangeText;
+import com.sergeev.day5.service.ChangeTextService;
 import com.sergeev.day5.validator.TextValidator;
 
-public class StringChangeTextImpl implements ChangeText {
+public class StringChangeTextImpl implements ChangeTextService {
 
     private static final String DELIMITER = " ";
     private static final String WRONG_LETTERS_LOWER_CASE = "pa";

@@ -9,9 +9,9 @@ import static org.testng.Assert.assertEquals;
 public class TextFileReaderTest {
 
     private TextFileReader textFileReader;
-    private final static String PATH_TO_FILE = "src/main/resources/dataTextTestReader.txt";
-    private final static String PATH_TO_EMPTY_FILE = "src/main/resources/emptyFileTest.txt";
-    private final static String WRONG_PATH_TO_FILE = "src/main/resources/data.txt";
+    private final static String PATH_TO_FILE = "src/test/resources/dataTextTestReader.txt";
+    private final static String PATH_TO_EMPTY_FILE = "src/test/resources/emptyFileTest.txt";
+    private final static String WRONG_PATH_TO_FILE = "src/test/resources/data.txt";
 
     @BeforeMethod
     public void setUp() {

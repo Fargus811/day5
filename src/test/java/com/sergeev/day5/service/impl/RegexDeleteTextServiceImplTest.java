@@ -4,7 +4,7 @@ import com.sergeev.day5.exception.ProgramException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class RegexDeleteTextServiceImplTest {
 
@@ -30,9 +30,9 @@ public class RegexDeleteTextServiceImplTest {
     }
 
     @Test
-    public void testDeleteTextWithConsonantOfGivenLength() throws ProgramException{
+    public void testDeleteTextWithConsonantOfGivenLength() throws ProgramException {
         String text = "RegExr was created by gskinner, and is proudly hosted by Media Temple!";
-        String actual = regexDeleteTextService.deleteTextWithConsonantOfGivenLength(text,6);
+        String actual = regexDeleteTextService.deleteTextWithConsonantOfGivenLength(text, 6);
         String expected = "was created by gskinner, and is proudly  by Media !";
         assertEquals(actual, expected);
     }

@@ -13,7 +13,7 @@ import static org.testng.Assert.assertEquals;
 public class TextConsoleReaderTest {
 
     private TextConsoleReader textConsoleReader;
-    private final static String PATH_TO_TEST_FILE = "src/main/resources/dataTextTestConsole.txt";
+    private final static String PATH_TO_TEST_FILE = "src/test/resources/dataTextTestConsole.txt";
 
     @BeforeMethod
     public void setUp() {

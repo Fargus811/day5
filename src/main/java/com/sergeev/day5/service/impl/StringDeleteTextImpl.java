@@ -1,10 +1,10 @@
 package com.sergeev.day5.service.impl;
 
 import com.sergeev.day5.exception.ProgramException;
-import com.sergeev.day5.service.DeleteText;
+import com.sergeev.day5.service.DeleteTextService;
 import com.sergeev.day5.validator.TextValidator;
 
-public class StringDeleteTextImpl implements DeleteText {
+public class StringDeleteTextImpl implements DeleteTextService {
 
     private static final String DELIMITER = " ";
     private static final char INSTEAD_OF_PUNCTUATION = ' ';
@@ -64,6 +64,6 @@ public class StringDeleteTextImpl implements DeleteText {
 
     private boolean isLastSymbolNotLetterOrDigit(String word, int length) {
         char[] wordSymbols = word.toCharArray();
-        return !Character.isLetterOrDigit(wordSymbols[wordSymbols.length - 1]) && word.length() == length + 1 ;
+        return !Character.isLetterOrDigit(wordSymbols[wordSymbols.length - 1]) && word.length() == length + 1;
     }
 }
