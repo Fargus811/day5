@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 
 public class TextConsoleReader {
 
-    private static final String TERMS = "The end of input is: \"exit\"";
     private static final String LINE_TO_EXIT = "exit";
     private static final String DELIMITER = " ";
 
@@ -16,11 +15,10 @@ public class TextConsoleReader {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder stringBuilder = new StringBuilder();
         try {
-            System.out.println(TERMS);
             String lineFromConsole;
             while (true) {
                 lineFromConsole = reader.readLine();
-                if (lineFromConsole.equals(LINE_TO_EXIT)) {
+                if (lineFromConsole.equals(LINE_TO_EXIT)) {  //The end of input is: "exit"
                     break;
                 }
                 stringBuilder.append(lineFromConsole).append(DELIMITER);

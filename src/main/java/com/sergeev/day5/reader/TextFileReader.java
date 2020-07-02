@@ -23,16 +23,20 @@ public class TextFileReader {
         } catch (IOException e) {
             throw new ProgramException("File not found", e);
         } finally {
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException e) {
-                    throw new ProgramException("Error in buffered reader", e);
-                }
-            }
+            closeReader(bufferedReader);
         }
         isEmpty(stringBuilder);
         return stringBuilder.toString();
+    }
+
+    private void closeReader(BufferedReader bufferedReader) throws ProgramException {
+        if (bufferedReader != null) {
+            try {
+                bufferedReader.close();
+            } catch (IOException e) {
+                throw new ProgramException("Error in buffered reader", e);
+            }
+        }
     }
 
     private void addLineToResultText(StringBuilder stringBuilder, String nextLine) {

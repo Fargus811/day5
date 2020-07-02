@@ -12,7 +12,7 @@ public class ArrayDeleteTextServiceImpl implements DeleteText {
     private static final String DELIMITER = " ";
     private static final String EMPTY_LINE = "";
     private static final String VOWELS = "aeiouAEIOU";
-    private static int PUNCTUATION_MARK_END = 2;
+    private static final int PUNCTUATION_MARK_END = 1;
 
     private TextValidator textValidator = new TextValidator();
 
@@ -36,35 +36,23 @@ public class ArrayDeleteTextServiceImpl implements DeleteText {
         String[] stringArray = Arrays.stream(text.split(DELIMITER)).map(String::trim).toArray(String[]::new);
         StringBuilder stringBuilder = new StringBuilder();
         for (String line : stringArray) {
-            stringBuilder.append(removeWordBeginningWithConsonant(lengthOfWordToDelete - 1, line)).append(DELIMITER);
+            stringBuilder.append(removeWordBeginningWithConsonant(lengthOfWordToDelete, line)).append(DELIMITER);
         }
         return stringBuilder.toString().trim();
     }
 
     private String removeWordBeginningWithConsonant(int length, String line) {
         char[] word = line.toCharArray();
-        if (isEndsWithPunctuationMark(length, line, word)) {
+        if (isEndsWithPunctuationMark(length, word)) {
             return EMPTY_LINE + word[line.length() - 1];
         }
-        if (line.length() == length + 1) {
-            if (VOWELS.indexOf(word[0]) != 0) {
-                return EMPTY_LINE;
-            }
+        if (line.length() == length && VOWELS.indexOf(word[0]) != 0) {
+            return EMPTY_LINE;
         }
         return line;
     }
 
-    private boolean isEndsWithPunctuationMark(int length, String line, char[] word) {
-        if (line.length() <= length) {
-            return false;
-        }
-        if (word.length == length + PUNCTUATION_MARK_END && !Character.isLetter(word[word.length - 1])) {
-            if (line.length() == length + PUNCTUATION_MARK_END) {
-                if (VOWELS.indexOf(word[0]) != 0) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    private boolean isEndsWithPunctuationMark(int length, char[] word) {
+        return word.length == length + PUNCTUATION_MARK_END && !Character.isLetter(word[word.length - 1]);
     }
 }

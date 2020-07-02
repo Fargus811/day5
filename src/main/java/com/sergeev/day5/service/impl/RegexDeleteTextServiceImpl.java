@@ -15,7 +15,7 @@ public class RegexDeleteTextServiceImpl implements DeleteText {
     private static final String EMPTY_LINE = "";
     private static final String DELIMITER = " ";
 
-    private TextValidator textValidator = new TextValidator();
+     private TextValidator textValidator = new TextValidator();
 
     @Override
     public String deletePunctuationInText(String text) throws ProgramException {
