@@ -28,6 +28,11 @@ public class RegexChangeServiceTextImplTest {
         regexChangeServiceText.changeSymbolInWordByIndex(null, 1, ';');
     }
 
+    @Test(expectedExceptions = ProgramException.class)
+    public void testChangeSymbolInWordByInvalidIndexInText() throws ProgramException {
+        regexChangeServiceText.changeSymbolInWordByIndex("Hi, Dan", 0, ';');
+    }
+
     @Test
     public void testChangeWordWithWrongLetterAAfterP() throws ProgramException {
         String text = "Papat the Exppassion & Text 123 to see matches.";
@@ -55,4 +60,13 @@ public class RegexChangeServiceTextImplTest {
         regexChangeServiceText.changeWordByQuantityWithNewLine("", 4, "hello");
     }
 
+    @Test(expectedExceptions = ProgramException.class)
+    public void testChangeWordByInvalidQuantityWithNewLineInText() throws ProgramException {
+        regexChangeServiceText.changeWordByQuantityWithNewLine("London Paris Minsk", 0, "hello");
+    }
+
+    @Test(expectedExceptions = ProgramException.class)
+    public void testChangeWordByQuantityWithInvalidNewLineInText() throws ProgramException {
+        regexChangeServiceText.changeWordByQuantityWithNewLine("London Paris Minsk", 2, null);
+    }
 }

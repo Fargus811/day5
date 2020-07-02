@@ -18,7 +18,8 @@ public class ArrayChangeTextServiceImpl implements ChangeTextService {
 
     @Override
     public String changeSymbolInWordByIndex(String text, int index, char symbol) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
+        textValidator.validateDigitParameter(index);
         String[] strings = Arrays.stream(text.split(DELIMITER)).map(String::trim).toArray(String[]::new);
         StringBuilder stringBuilder = new StringBuilder();
         for (String word : strings) {
@@ -37,7 +38,7 @@ public class ArrayChangeTextServiceImpl implements ChangeTextService {
 
     @Override
     public String changeWordWithWrongLetterAAfterP(String text) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
         char[] textArray = text.toCharArray();
         for (int i = 0; i < textArray.length - 1; i++) {
             if (isSuitableWithLettersPAndA(textArray, i)) {
@@ -54,7 +55,9 @@ public class ArrayChangeTextServiceImpl implements ChangeTextService {
 
     @Override
     public String changeWordByQuantityWithNewLine(String text, int quantity, String toReplace) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(toReplace);
+        textValidator.validateDigitParameter(quantity);
         String[] strings = Arrays.stream(text.split(DELIMITER)).map(String::trim).toArray(String[]::new);
         StringBuilder stringBuilder = new StringBuilder();
         for (String word : strings) {

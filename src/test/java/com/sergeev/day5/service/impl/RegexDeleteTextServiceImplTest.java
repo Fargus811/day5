@@ -41,4 +41,9 @@ public class RegexDeleteTextServiceImplTest {
     public void testDeleteWordsInNullTextWithConsonantOfGivenLength() throws ProgramException {
         regexDeleteTextService.deleteTextWithConsonantOfGivenLength(null, 2);
     }
+
+    @Test(expectedExceptions = ProgramException.class)
+    public void testDeleteWordsInTextWithConsonantOfGivenInvalidLength() throws ProgramException {
+        regexDeleteTextService.deleteTextWithConsonantOfGivenLength("HI, Omigo!", -1);
+    }
 }

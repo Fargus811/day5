@@ -9,6 +9,4 @@ public interface ChangeTextService {
     String changeWordWithWrongLetterAAfterP(String text) throws ProgramException;
 
     String changeWordByQuantityWithNewLine(String text, int quantity, String toReplace) throws ProgramException;
-
-
 }

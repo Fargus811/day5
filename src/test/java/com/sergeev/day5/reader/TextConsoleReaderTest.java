@@ -25,6 +25,6 @@ public class TextConsoleReaderTest {
         System.setIn(new BufferedInputStream(new FileInputStream(PATH_TO_TEST_FILE)));
         String actual = textConsoleReader.readFromConsole();
         String expected = "Hello World ";
-        assertEquals(actual,expected);
+        assertEquals(actual, expected);
     }
 }

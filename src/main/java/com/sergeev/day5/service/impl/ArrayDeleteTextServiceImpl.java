@@ -18,7 +18,7 @@ public class ArrayDeleteTextServiceImpl implements DeleteTextService {
 
     @Override
     public String deletePunctuationInText(String text) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
         char[] textArray = text.toCharArray();
         StringBuilder stringBuilder = new StringBuilder();
         for (char symbol : textArray) {
@@ -32,11 +32,12 @@ public class ArrayDeleteTextServiceImpl implements DeleteTextService {
 
     @Override
     public String deleteTextWithConsonantOfGivenLength(String text, int lengthOfWordToDelete) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
+        textValidator.validateDigitParameter(lengthOfWordToDelete);
         String[] strings = Arrays.stream(text.split(DELIMITER)).map(String::trim).toArray(String[]::new);
         StringBuilder stringBuilder = new StringBuilder();
-        for (String line : strings) {
-            stringBuilder.append(removeWordBeginningWithConsonant(lengthOfWordToDelete, line)).append(DELIMITER);
+        for (String word : strings) {
+            stringBuilder.append(removeWordBeginningWithConsonant(lengthOfWordToDelete, word)).append(DELIMITER);
         }
         return stringBuilder.toString().trim();
     }

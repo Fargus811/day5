@@ -20,7 +20,8 @@ public class RegexChangeServiceTextImpl implements ChangeTextService {
 
     @Override
     public String changeSymbolInWordByIndex(String text, int index, char symbol) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
+        textValidator.validateDigitParameter(index);
         StringBuffer sb = new StringBuffer();
         Pattern pattern = Pattern.compile(REGEX_TO_CHANGE_LETTER + index + REGEX_END);
         Matcher matcher = pattern.matcher(text);
@@ -35,7 +36,7 @@ public class RegexChangeServiceTextImpl implements ChangeTextService {
 
     @Override
     public String changeWordWithWrongLetterAAfterP(String text) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
         StringBuffer sb = new StringBuffer();
         Pattern pattern = Pattern.compile(REGEX_FOR_WRONG_LETTER_A);
         Matcher matcher = pattern.matcher(text);
@@ -50,7 +51,9 @@ public class RegexChangeServiceTextImpl implements ChangeTextService {
 
     @Override
     public String changeWordByQuantityWithNewLine(String text, int quantity, String toReplace) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(toReplace);
+        textValidator.validateDigitParameter(quantity);
         StringBuffer sb = new StringBuffer();
         Pattern pattern = Pattern.compile(REGEX_FOR_WORD_WITH_QUANTITY + quantity + REGEX_END_FOR_WORD_WITH_QUANTITY);
         Matcher matcher = pattern.matcher(text);

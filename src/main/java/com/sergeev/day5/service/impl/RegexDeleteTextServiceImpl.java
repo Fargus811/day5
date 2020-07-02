@@ -18,7 +18,7 @@ public class RegexDeleteTextServiceImpl implements DeleteTextService {
 
     @Override
     public String deletePunctuationInText(String text) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
         StringBuffer sb = new StringBuffer();
         Pattern pattern = Pattern.compile(REGEX_TO_DELETE_PUNCTUATION);
         Matcher matcher = pattern.matcher(text);
@@ -30,9 +30,10 @@ public class RegexDeleteTextServiceImpl implements DeleteTextService {
     }
 
     @Override
-    public String deleteTextWithConsonantOfGivenLength(String text, int length) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
-        int sizeOfWord = length - 1;
+    public String deleteTextWithConsonantOfGivenLength(String text, int lengthOfWordToDelete) throws ProgramException {
+        textValidator.validateTextNotNullOrEmpty(text);
+        textValidator.validateDigitParameter(lengthOfWordToDelete);
+        int sizeOfWord = lengthOfWordToDelete - 1;
         StringBuffer sb = new StringBuffer();
         Pattern pattern = Pattern.compile(String.format(REGEX_TO_DELETE_CONSONANT, sizeOfWord));
         Matcher matcher = pattern.matcher(text);

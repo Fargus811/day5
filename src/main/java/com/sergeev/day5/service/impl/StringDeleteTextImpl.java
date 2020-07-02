@@ -14,7 +14,7 @@ public class StringDeleteTextImpl implements DeleteTextService {
 
     @Override
     public String deletePunctuationInText(String text) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
         String[] strings = text.split(DELIMITER);
         StringBuilder stringBuilder = new StringBuilder();
         String newLine;
@@ -28,8 +28,8 @@ public class StringDeleteTextImpl implements DeleteTextService {
         return stringBuilder.toString().trim();
     }
 
-    private String getWordWithoutPunctuationMark(String newLine, String word, int i) {
-        char comparing = word.charAt(i);
+    private String getWordWithoutPunctuationMark(String newLine, String word, int indexOfChar) {
+        char comparing = word.charAt(indexOfChar);
         if (!Character.isLetterOrDigit(comparing)) {
             newLine = word.replaceAll(String.valueOf(comparing), String.valueOf(INSTEAD_OF_PUNCTUATION));
         }
@@ -37,15 +37,16 @@ public class StringDeleteTextImpl implements DeleteTextService {
     }
 
     @Override
-    public String deleteTextWithConsonantOfGivenLength(String text, int length) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+    public String deleteTextWithConsonantOfGivenLength(String text, int lengthOfWordToDelete) throws ProgramException {
+        textValidator.validateTextNotNullOrEmpty(text);
+        textValidator.validateDigitParameter(lengthOfWordToDelete);
         String[] strings = text.split(DELIMITER);
         StringBuilder stringBuilder = new StringBuilder();
         for (String word : strings) {
             if (!word.startsWith(VOWELS)) {
-                if (isLastSymbolNotLetterOrDigit(word, length)) {
-                    leaveOnlyPunctuationMark(length, word, stringBuilder);
-                } else if (word.length() == length) {
+                if (isLastSymbolNotLetterOrDigit(word, lengthOfWordToDelete)) {
+                    leaveOnlyPunctuationMark(lengthOfWordToDelete, word, stringBuilder);
+                } else if (word.length() == lengthOfWordToDelete) {
                     stringBuilder.append(DELIMITER);
                 } else {
                     stringBuilder.append(word).append(DELIMITER);

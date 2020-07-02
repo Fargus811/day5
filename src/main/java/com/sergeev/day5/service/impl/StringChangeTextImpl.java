@@ -16,7 +16,8 @@ public class StringChangeTextImpl implements ChangeTextService {
 
     @Override
     public String changeSymbolInWordByIndex(String text, int index, char symbol) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
+        textValidator.validateDigitParameter(index);
         String[] strings = text.split(DELIMITER);
         StringBuilder stringBuilder = new StringBuilder();
         for (String line : strings) {
@@ -43,7 +44,7 @@ public class StringChangeTextImpl implements ChangeTextService {
 
     @Override
     public String changeWordWithWrongLetterAAfterP(String text) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
         String[] stringArray = text.split(DELIMITER);
         StringBuilder builder = new StringBuilder();
         for (String string : stringArray) {
@@ -71,10 +72,11 @@ public class StringChangeTextImpl implements ChangeTextService {
         return string.contains(WRONG_LETTERS_LOWER_CASE) || string.contains(WRONG_LETTERS_UPPER_CASE);
     }
 
-
     @Override
     public String changeWordByQuantityWithNewLine(String text, int quantity, String toReplace) throws ProgramException {
-        textValidator.isTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(text);
+        textValidator.validateTextNotNullOrEmpty(toReplace);
+        textValidator.validateDigitParameter(quantity);
         String[] words = text.split(DELIMITER);
         for (String word : words) {
             if (word.length() == quantity) {

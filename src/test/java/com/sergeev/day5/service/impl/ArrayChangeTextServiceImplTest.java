@@ -28,6 +28,10 @@ public class ArrayChangeTextServiceImplTest {
         arrayChangeTextService.changeSymbolInWordByIndex(null, 1, ';');
     }
 
+    @Test(expectedExceptions = ProgramException.class)
+    public void testChangeSymbolInWordByInvalidIndexInText() throws ProgramException {
+        arrayChangeTextService.changeSymbolInWordByIndex("Hi, Dan", 0, ';');
+    }
 
     @Test
     public void testChangeWordWithWrongLetterAAfterP() throws ProgramException {
@@ -53,6 +57,16 @@ public class ArrayChangeTextServiceImplTest {
     @Test(expectedExceptions = ProgramException.class)
     public void testChangeWordByQuantityWithNewLineInEmptyText() throws ProgramException {
         arrayChangeTextService.changeWordByQuantityWithNewLine("", 4, "hello");
+    }
+
+    @Test(expectedExceptions = ProgramException.class)
+    public void testChangeWordByInvalidQuantityWithNewLineInText() throws ProgramException {
+        arrayChangeTextService.changeWordByQuantityWithNewLine("London Paris Minsk", 0, "hello");
+    }
+
+    @Test(expectedExceptions = ProgramException.class)
+    public void testChangeWordByQuantityWithInvalidNewLineInText() throws ProgramException {
+        arrayChangeTextService.changeWordByQuantityWithNewLine("London Paris Minsk", 2, null);
     }
 
 }

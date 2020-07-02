@@ -24,10 +24,14 @@ public class StringChangeTextImplTest {
     }
 
     @Test(expectedExceptions = ProgramException.class)
+    public void testChangeSymbolInWordByInvalidIndexInText() throws ProgramException {
+        stringChangeText.changeSymbolInWordByIndex("Hi, Dan", 0, ';');
+    }
+
+    @Test(expectedExceptions = ProgramException.class)
     public void testChangeSymbolInWordByIndexInNullText() throws ProgramException {
         stringChangeText.changeSymbolInWordByIndex(null, 1, ';');
     }
-
 
     @Test
     public void testChangeWordWithWrongLetterAAfterP() throws ProgramException {
@@ -55,5 +59,14 @@ public class StringChangeTextImplTest {
         stringChangeText.changeWordByQuantityWithNewLine("", 4, "hello");
     }
 
+    @Test(expectedExceptions = ProgramException.class)
+    public void testChangeWordByInvalidQuantityWithNewLineInText() throws ProgramException {
+        stringChangeText.changeWordByQuantityWithNewLine("London Paris Minsk", 0, "hello");
+    }
+
+    @Test(expectedExceptions = ProgramException.class)
+    public void testChangeWordByQuantityWithInvalidNewLineInText() throws ProgramException {
+        stringChangeText.changeWordByQuantityWithNewLine("London Paris Minsk", 2, null);
+    }
 }
 

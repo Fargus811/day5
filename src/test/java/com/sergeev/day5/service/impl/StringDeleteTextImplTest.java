@@ -40,4 +40,9 @@ public class StringDeleteTextImplTest {
     public void testDeleteWordsInNullTextWithConsonantOfGivenLength() throws ProgramException {
         stringDeleteTextService.deleteTextWithConsonantOfGivenLength(null, 2);
     }
+
+    @Test(expectedExceptions = ProgramException.class)
+    public void testDeleteWordsInTextWithConsonantOfGivenInvalidLength() throws ProgramException {
+        stringDeleteTextService.deleteTextWithConsonantOfGivenLength("HI, Omigo!", -1);
+    }
 }
