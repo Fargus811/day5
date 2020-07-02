@@ -16,10 +16,10 @@ public class StringChangeTextImpl implements ChangeText {
 
     @Override
     public String changeSymbolInWordByIndex(String text, int index, char symbol) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
-        String[] stringArray = text.split(DELIMITER);
+        textValidator.isTextNotNullOrEmpty(text);
+        String[] strings = text.split(DELIMITER);
         StringBuilder stringBuilder = new StringBuilder();
-        for (String line : stringArray) {
+        for (String line : strings) {
             char[] word = line.toCharArray();
             if (Character.isLetter(word[index - 1])) {
                 String newLine = insertCharInWord(index, symbol, line);
@@ -43,7 +43,7 @@ public class StringChangeTextImpl implements ChangeText {
 
     @Override
     public String changeWordWithWrongLetterAAfterP(String text) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
+        textValidator.isTextNotNullOrEmpty(text);
         String[] stringArray = text.split(DELIMITER);
         StringBuilder builder = new StringBuilder();
         for (String string : stringArray) {
@@ -74,7 +74,7 @@ public class StringChangeTextImpl implements ChangeText {
 
     @Override
     public String changeWordByQuantityWithNewLine(String text, int quantity, String toReplace) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
+        textValidator.isTextNotNullOrEmpty(text);
         String[] words = text.split(DELIMITER);
         for (String word : words) {
             if (word.length() == quantity) {

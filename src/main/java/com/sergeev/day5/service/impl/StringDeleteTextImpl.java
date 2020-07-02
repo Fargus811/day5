@@ -14,11 +14,11 @@ public class StringDeleteTextImpl implements DeleteText {
 
     @Override
     public String deletePunctuationInText(String text) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
-        String[] words = text.split(DELIMITER);
+        textValidator.isTextNotNullOrEmpty(text);
+        String[] strings = text.split(DELIMITER);
         StringBuilder stringBuilder = new StringBuilder();
         String newLine;
-        for (String word : words) {
+        for (String word : strings) {
             newLine = word;
             for (int i = 0; i < word.length(); i++) {
                 newLine = getWordWithoutPunctuationMark(newLine, word, i);
@@ -38,20 +38,20 @@ public class StringDeleteTextImpl implements DeleteText {
 
     @Override
     public String deleteTextWithConsonantOfGivenLength(String text, int length) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
-        String[] words = text.split(DELIMITER);
+        textValidator.isTextNotNullOrEmpty(text);
+        String[] strings = text.split(DELIMITER);
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < words.length; i++) {
-            if (!words[i].startsWith(VOWELS)) {
-                if (isLastSymbolNotLetterOrDigit(words[i],length)) {
-                    leaveOnlyPunctuationMark(length, words[i], stringBuilder);
-                } else if (words[i].length() == length) {
+        for (int i = 0; i < strings.length; i++) {
+            if (!strings[i].startsWith(VOWELS)) {
+                if (isLastSymbolNotLetterOrDigit(strings[i],length)) {
+                    leaveOnlyPunctuationMark(length, strings[i], stringBuilder);
+                } else if (strings[i].length() == length) {
                     stringBuilder.append(DELIMITER);
                 } else {
-                    stringBuilder.append(words[i]).append(DELIMITER);
+                    stringBuilder.append(strings[i]).append(DELIMITER);
                 }
             } else {
-                stringBuilder.append(words[i]).append(DELIMITER);
+                stringBuilder.append(strings[i]).append(DELIMITER);
             }
         }
         return stringBuilder.toString().trim();

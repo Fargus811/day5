@@ -16,17 +16,21 @@ public class TextFileReader {
         BufferedReader bufferedReader = null;
         try {
             bufferedReader = new BufferedReader(new FileReader(pathToFile));
-            String nextLine;
-            while ((nextLine = bufferedReader.readLine()) != null) {
-                addLineToResultText(stringBuilder, nextLine);
-            }
+            readFile(stringBuilder, bufferedReader);
         } catch (IOException e) {
             throw new ProgramException("File not found", e);
         } finally {
             closeReader(bufferedReader);
         }
-        isEmpty(stringBuilder);
+        validateNotEmpty(stringBuilder);
         return stringBuilder.toString();
+    }
+
+    private void readFile(StringBuilder stringBuilder, BufferedReader bufferedReader) throws IOException {
+        String nextLine;
+        while ((nextLine = bufferedReader.readLine()) != null) {
+            addLineToResultText(stringBuilder, nextLine);
+        }
     }
 
     private void closeReader(BufferedReader bufferedReader) throws ProgramException {
@@ -47,9 +51,9 @@ public class TextFileReader {
         }
     }
 
-    private void isEmpty(StringBuilder stringBuilder) throws ProgramException {
+    private void validateNotEmpty(StringBuilder stringBuilder) throws ProgramException {
         if (stringBuilder.toString().isEmpty()) {
-            throw new ProgramException("File is empty");
+            throw new ProgramException("StringBuilder is empty");
         }
     }
 }

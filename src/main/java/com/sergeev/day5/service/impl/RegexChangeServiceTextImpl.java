@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 public class RegexChangeServiceTextImpl implements ChangeText {
 
-    private static final String REGEX_TO_CHANGE_WORD = "[a-zA-Z0-9]{";
     private static final String REGEX_TO_CHANGE_LETTER = "[a-zA-Z]{";
     private static final String REGEX_END = ",}";
     private static final String REGEX_FOR_WRONG_LETTER_A = "pa|Pa";
@@ -21,7 +20,7 @@ public class RegexChangeServiceTextImpl implements ChangeText {
 
     @Override
     public String changeSymbolInWordByIndex(String text, int index, char symbol) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
+        textValidator.isTextNotNullOrEmpty(text);
         StringBuffer sb = new StringBuffer();
         Pattern pattern = Pattern.compile(REGEX_TO_CHANGE_LETTER + index + REGEX_END);
         Matcher matcher = pattern.matcher(text);
@@ -36,7 +35,7 @@ public class RegexChangeServiceTextImpl implements ChangeText {
 
     @Override
     public String changeWordWithWrongLetterAAfterP(String text) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
+        textValidator.isTextNotNullOrEmpty(text);
         StringBuffer sb = new StringBuffer();
         Pattern pattern = Pattern.compile(REGEX_FOR_WRONG_LETTER_A);
         Matcher matcher = pattern.matcher(text);
@@ -51,7 +50,7 @@ public class RegexChangeServiceTextImpl implements ChangeText {
 
     @Override
     public String changeWordByQuantityWithNewLine(String text, int quantity, String toReplace) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
+        textValidator.isTextNotNullOrEmpty(text);
         StringBuffer sb = new StringBuffer();
         Pattern pattern = Pattern.compile(REGEX_FOR_WORD_WITH_QUANTITY+ quantity + REGEX_END_FOR_WORD_WITH_QUANTITY);
         Matcher matcher = pattern.matcher(text);

@@ -18,10 +18,10 @@ public class ArrayChangeTextServiceImpl implements ChangeText {
 
     @Override
     public String changeSymbolInWordByIndex(String text, int index, char symbol) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
-        String[] stringArray = Arrays.stream(text.split(DELIMITER)).map(String::trim).toArray(String[]::new);
+        textValidator.isTextNotNullOrEmpty(text);
+        String[] strings = Arrays.stream(text.split(DELIMITER)).map(String::trim).toArray(String[]::new);
         StringBuilder stringBuilder = new StringBuilder();
-        for (String word : stringArray) {
+        for (String word : strings) {
             if (word.length() >= index) {
                 char[] charsOfWord = word.toCharArray();
                 if (Character.isLetter(charsOfWord[index - 1])) {
@@ -37,7 +37,7 @@ public class ArrayChangeTextServiceImpl implements ChangeText {
 
     @Override
     public String changeWordWithWrongLetterAAfterP(String text) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
+        textValidator.isTextNotNullOrEmpty(text);
         char[] textArray = text.toCharArray();
         for (int i = 0; i < textArray.length - 1; i++) {
             if (isSuitableWithLettersPAndA(textArray, i)) {
@@ -54,14 +54,14 @@ public class ArrayChangeTextServiceImpl implements ChangeText {
 
     @Override
     public String changeWordByQuantityWithNewLine(String text, int quantity, String toReplace) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
-        String[] stringArray = Arrays.stream(text.split(DELIMITER)).map(String::trim).toArray(String[]::new);
+        textValidator.isTextNotNullOrEmpty(text);
+        String[] strings = Arrays.stream(text.split(DELIMITER)).map(String::trim).toArray(String[]::new);
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < stringArray.length; i++) {
-            if (stringArray[i].length() == quantity) {
+        for (int i = 0; i < strings.length; i++) {
+            if (strings[i].length() == quantity) {
                 stringBuilder.append(toReplace).append(DELIMITER);
             } else {
-                stringBuilder.append(stringArray[i]).append(DELIMITER);
+                stringBuilder.append(strings[i]).append(DELIMITER);
             }
         }
         return stringBuilder.toString().trim();

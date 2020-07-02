@@ -18,7 +18,7 @@ public class ArrayDeleteTextServiceImpl implements DeleteText {
 
     @Override
     public String deletePunctuationInText(String text) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
+        textValidator.isTextNotNullOrEmpty(text);
         char[] textArray = text.toCharArray();
         StringBuilder stringBuilder = new StringBuilder();
         for (char symbol : textArray) {
@@ -32,10 +32,10 @@ public class ArrayDeleteTextServiceImpl implements DeleteText {
 
     @Override
     public String deleteTextWithConsonantOfGivenLength(String text, int lengthOfWordToDelete) throws ProgramException {
-        textValidator.isTextNotNullAndEmpty(text);
-        String[] stringArray = Arrays.stream(text.split(DELIMITER)).map(String::trim).toArray(String[]::new);
+        textValidator.isTextNotNullOrEmpty(text);
+        String[] strings = Arrays.stream(text.split(DELIMITER)).map(String::trim).toArray(String[]::new);
         StringBuilder stringBuilder = new StringBuilder();
-        for (String line : stringArray) {
+        for (String line : strings) {
             stringBuilder.append(removeWordBeginningWithConsonant(lengthOfWordToDelete, line)).append(DELIMITER);
         }
         return stringBuilder.toString().trim();
@@ -46,7 +46,7 @@ public class ArrayDeleteTextServiceImpl implements DeleteText {
         if (isEndsWithPunctuationMark(length, word)) {
             return EMPTY_LINE + word[line.length() - 1];
         }
-        if (line.length() == length && VOWELS.indexOf(word[0]) != 0) {
+        if (line.length() == length && line.startsWith(VOWELS)) {
             return EMPTY_LINE;
         }
         return line;
