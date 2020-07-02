@@ -4,7 +4,7 @@ import com.sergeev.day5.exception.ProgramException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class TextFileReaderTest {
 
@@ -21,17 +21,18 @@ public class TextFileReaderTest {
     @Test
     public void testCreateTextFromFile() throws ProgramException {
         String actual = textFileReader.createTextFromFile(PATH_TO_FILE);
-        String expected = "RegExr was created by gskinner.com, and is proudly hosted by Media Temple. Edit the Expression & Text to see matches. Roll over matches or the expression for details.";
-        assertEquals(actual,expected);
+        String expected = "RegExr was created by gskinner.com, and is proudly hosted by Media Temple.\n" +
+                "Edit the Expression & Text to see matches. Roll over matches or the expression for details.";
+        assertEquals(actual, expected);
     }
 
     @Test(expectedExceptions = ProgramException.class)
-    public void testCreateTextFromFileWrongPathProgramException() throws ProgramException{
+    public void testCreateTextFromFileWrongPathProgramException() throws ProgramException {
         textFileReader.createTextFromFile(WRONG_PATH_TO_FILE);
     }
 
     @Test(expectedExceptions = ProgramException.class)
-    public void testCreateTextFromEmptyFileProgramException() throws ProgramException{
+    public void testCreateTextFromEmptyFileProgramException() throws ProgramException {
         textFileReader.createTextFromFile(PATH_TO_EMPTY_FILE);
     }
 }

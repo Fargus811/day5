@@ -41,17 +41,17 @@ public class StringDeleteTextImpl implements DeleteText {
         textValidator.isTextNotNullOrEmpty(text);
         String[] strings = text.split(DELIMITER);
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < strings.length; i++) {
-            if (!strings[i].startsWith(VOWELS)) {
-                if (isLastSymbolNotLetterOrDigit(strings[i],length)) {
-                    leaveOnlyPunctuationMark(length, strings[i], stringBuilder);
-                } else if (strings[i].length() == length) {
+        for (String word : strings) {
+            if (!word.startsWith(VOWELS)) {
+                if (isLastSymbolNotLetterOrDigit(word, length)) {
+                    leaveOnlyPunctuationMark(length, word, stringBuilder);
+                } else if (word.length() == length) {
                     stringBuilder.append(DELIMITER);
                 } else {
-                    stringBuilder.append(strings[i]).append(DELIMITER);
+                    stringBuilder.append(word).append(DELIMITER);
                 }
             } else {
-                stringBuilder.append(strings[i]).append(DELIMITER);
+                stringBuilder.append(word).append(DELIMITER);
             }
         }
         return stringBuilder.toString().trim();

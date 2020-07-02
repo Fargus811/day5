@@ -58,9 +58,9 @@ public class StringChangeTextImpl implements ChangeText {
 
     private void changeWrongLetterA(StringBuilder builder, String string) {
         String newString;
-        newString = string.replaceAll(WRONG_LETTERS_LOWER_CASE, RIGHT_LETTERS_LOWER_CASE);
+        newString = string.replace(WRONG_LETTERS_LOWER_CASE, RIGHT_LETTERS_LOWER_CASE);
         if (newString.contains(WRONG_LETTERS_UPPER_CASE)) {
-            newString = newString.replaceAll(WRONG_LETTERS_UPPER_CASE, RIGHT_LETTERS_UPPER_CASE);
+            newString = newString.replace(WRONG_LETTERS_UPPER_CASE, RIGHT_LETTERS_UPPER_CASE);
             builder.append(newString).append(DELIMITER);
         } else {
             builder.append(newString).append(DELIMITER);

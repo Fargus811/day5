@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class TextFileReader {
 
-    private static final String DELIMITER = " ";
+    private static final String DELIMITER = "\n";
     private static final String EMPTY_LINE = "";
 
     public String createTextFromFile(String pathToFile) throws ProgramException {
